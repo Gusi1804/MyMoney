@@ -7,7 +7,7 @@ var functions = require('./functions'); // Import custom functions
 
 // Fetch the service account key JSON file contents
 //var serviceAccount = require("/Users/gustavogarfias/Documents/Cybernetics Project Fall 22/MyMoney/mymoney-9e9c8-firebase-adminsdk-kfspr-8d10e3c3cc.json");
-var serviceAccount = process.env.serviceAccount;
+var serviceAccount = require('/etc/secrets/serviceAccount.json');
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
