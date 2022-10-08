@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- All of this is code is slightly modified (for example to add modules such as Firebase and Bootstrap) boilerplate code that serves as a basic layout
+    for all the pages on my website (i.e., all my pages will have the same <head> for example, but the <body> will change) -->
+
+    <meta charset="UTF-8">
+
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Boostrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-app-compat.js"></script>
+    <!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseApp = firebase.initializeApp({
+            apiKey: "AIzaSyBvobjQSEWre4BejUoVRzZAGPOupmC3ouY",
+            authDomain: "mymoney-9e9c8.firebaseapp.com",
+            databaseURL: "https://mymoney-9e9c8-default-rtdb.firebaseio.com",
+            projectId: "mymoney-9e9c8",
+            storageBucket: "mymoney-9e9c8.appspot.com",
+            messagingSenderId: "987890272946",
+            appId: "1:987890272946:web:a06245ce66f310a0c057ab"
+        });
+    </script>
+
+    <!-- Title -->
+    <title>{{title}}</title> <!-- Here the title is dynamic; it will be setup dynamically each time the layout is used -->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark site-nav nav-padding">
+        <!-- Navbar content -->
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">MyMoney</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+              <a class="nav-link" href="/accounts">Accounts</a>
+              <a class="nav-link" href="/categories">Categories</a>
+              <a class="nav-link" href="/projects">Projects</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      {{{body}}} <!-- The <body> is also dynamic, so that each new view that is created can have different content, but still have the advantage of not having to
+        rewrite all the "boilerplate" code  -->
+    </main>
+
+    <!-- Boostrap 5 JS Functions for compatibility (for example, used to make modals with Bootstrap without wiriting additional JS code) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>

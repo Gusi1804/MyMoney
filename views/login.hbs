@@ -1,0 +1,65 @@
+<h1>{{title}}</h1>
+
+<form onsubmit="login()" action="javascript:void(0);">
+    <div class="form-floating mb-3">
+        <input name="email" id="email" type="email" class="form-control">
+        <label for="email">Email</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input name="password" id="password" type="password" class="form-control">
+        <label for="password">Password</label>
+    </div>
+        
+    <input type="submit" class="btn btn-primary" value="Log in">
+</form>
+
+<script>
+    function login() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        const auth = firebaseApp.auth();
+
+        auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in
+                var user = userCredential.user;
+
+                console.log(userCredential.user.email);
+
+                user.getIdToken(true).then((token) => {
+                    if (token) {
+                        // put the token at localStorage (We'll use this to make requests)
+                        localStorage.setItem("@token", token);
+                    }
+                });
+
+                
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+            });
+
+        /*
+        auth.signInWithEmailAndPassword(email, password)
+            .then(function(userCredential) {
+                // User successfully signed in.
+                // ...
+                console.log("User successfully signed in.")
+
+                const token = userCredential.getIdToken(true);
+
+                if (token) {
+                    // put the token at localStorage (We'll use this to make requests)
+                    localStorage.setItem("@token", token);
+                }
+            })
+            .catch(function(error) {
+                // Error during login
+                alert("Error signing in, try again please.");
+            });
+            */
+    }
+</script>

@@ -1,0 +1,15 @@
+<h1>{{title}}</h1>
+
+{{#if accounts}} <!-- Only show list if there user already has accounts -->
+    <ul class="list-group">
+        {{#each accounts}} <!-- Execute this code for each account object -->
+            <li class="list-group-item">
+                <a href="/accounts/{{@key}}">{{name}}</a> |
+                {{balance_f}} |
+                {{type}}
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+<p>No accounts yet...</p>
+{{/if}}

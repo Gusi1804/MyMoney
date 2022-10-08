@@ -1,0 +1,117 @@
+<h1 class="pb-4">New Transaction</h1>
+
+<form action="/new/transaction" method="POST">
+    <div class="form-floating mb-3">
+        <input name="item" id="item" type="text" class="form-control">
+        <label for="item">Item Name/Description</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input name="merchant" id="merchant" type="text" class="form-control">
+        <label for="merchant">Merchant</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input name="amount" id="amount" type="currency" class="form-control">
+        <label for="amount">Amount</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input name="date" id="date" type="datetime-local" value="{{now}}" class="form-control">
+        <label for="date">Date</label>
+    </div>
+    
+    <div class="form-floating mb-3">
+        <select class="form-select" name="project" id="project" aria-label="Project">
+            {{#if projects}}
+                <option selected>Select an option</option>
+                {{#each projects}}
+                    <option value="{{name}}">{{name}}</option>
+                {{/each}}
+            {{else}}
+                <option value="">No projects yet, try adding one!</option>
+            {{/if}}
+        </select>
+        <label for="project">Project</label>
+    </div>
+    
+    <div class="form-floating mb-3">
+        <select class="form-select" name="category" id="category" aria-label="Category">
+            {{#if categories}}
+                <option selected>Select an option</option>
+                {{#each categories}}
+                    <option value="{{name}}">{{name}}</option>
+                {{/each}}
+            {{else}}
+                <option value="">No categories yet, try adding one!</option>
+            {{/if}}
+        </select>
+        <label for="category">Category</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <select class="form-select" name="type" id="type" aria-label="Type">
+            <option selected>Select an option</option>
+            <option value="Expense">Expense</option>
+            <option value="Income">Income</option>
+            <option value="Neutral">Neutral</option>
+        </select>
+        <label for="type">Type</label>
+    </div>
+
+    <div class="form-floating">
+        <select class="form-select" name="account" id="account" aria-label="Account">
+            {{#if accounts}}
+                <option selected>Select an option</option>
+                {{#each accounts}}
+                    <option value="{{name}}">{{name}}</option>
+                {{/each}}
+            {{else}}
+                <option value="">No accounts yet, try adding one!</option>
+            {{/if}}
+        </select>
+        <label for="account">Account</label>
+    </div>
+        
+    <input name="uid" type="text" value="0000001" style="visibility: hidden" class="form-control">
+    <input type="submit" class="btn btn-primary" value="Save Transaction">
+</form>
+
+<script>
+    //Currency Input Support
+    function localStringToNumber( s ) {
+        return Number( String( s ).replace( /[^0-9.-]+/g, "" ) )
+    }
+
+    var currencyInput = document.querySelectorAll( 'input[type="currency"]' );
+
+    for ( var i = 0; i < currencyInput.length; i++ ) {
+
+        var currency = 'MXN'
+        onBlur( {
+            target: currencyInput[ i ]
+        } )
+
+        currencyInput[ i ].addEventListener( 'focus', onFocus )
+        currencyInput[ i ].addEventListener( 'blur', onBlur )
+
+        function onFocus( e ) {
+            var value = e.target.value;
+            e.target.value = value ? localStringToNumber( value ) : ''
+        }
+
+        function onBlur( e ) {
+            var value = e.target.value
+
+            var options = {
+                maximumFractionDigits: 2,
+                currency: currency,
+                style: "currency",
+            }
+
+            e.target.value = ( value || value === 0 ) ?
+                localStringToNumber( value ).toLocaleString( undefined, options ) :
+                ''
+        }
+    }
+</script>

@@ -1,0 +1,12 @@
+<h1>{{title}}</h1>
+
+{{#if projects}} <!-- Only show list if there user already has projects -->
+    <ul class="list-group">
+        {{#each projects}} <!-- Execute this code for each project object -->
+            <li class="list-group-item">
+                <a href="/projects/{{@key}}">{{name}}</a>
+        {{/each}}
+    </ul>
+{{else}}
+<p>No projects yet...</p>
+{{/if}}

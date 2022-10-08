@@ -1,0 +1,11 @@
+<h1 class="pb-4">{{title}}</h1>
+
+<form action="/new/category" method="POST">
+    <div class="form-floating">
+        <input name="name" id="name" type="text" class="form-control">
+        <label for="name">Category Name</label>
+    </div>
+        
+    <input name="uid" type="text" value="0000001" style="visibility: hidden" class="form-control">
+    <input type="submit" class="btn btn-primary" value="Save Category">
+</form>

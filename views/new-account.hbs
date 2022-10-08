@@ -1,0 +1,65 @@
+<h1 class="pb-4">{{title}}</h1>
+
+<form action="/new/account" method="POST">
+    <div class="form-floating mb-3">
+        <input name="name" id="name" type="text" class="form-control">
+        <label for="name">Account Name</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input name="balance" id="balance" type="currency" class="form-control">
+        <label for="balance">Starting Balance</label>
+    </div>
+
+    <div class="form-floating">
+        <select class="form-select" name="type" id="type" aria-label="Type">
+            <option selected>Select an option</option>
+            <option value="Credit">Credit</option>
+            <option value="Debit">Debit</option>
+            <option value="Cash">Cash</option>
+        </select>
+        <label for="type">Account Type</label>
+    </div>
+        
+    <input name="uid" type="text" value="0000001" style="visibility: hidden" class="form-control">
+    <input type="submit" class="btn btn-primary" value="Save Account">
+</form>
+
+<script>
+    //Currency Input Support
+    function localStringToNumber( s ) {
+        return Number( String( s ).replace( /[^0-9.-]+/g, "" ) )
+    }
+
+    var currencyInput = document.querySelectorAll( 'input[type="currency"]' );
+
+    for ( var i = 0; i < currencyInput.length; i++ ) {
+
+        var currency = 'MXN'
+        onBlur( {
+            target: currencyInput[ i ]
+        } )
+
+        currencyInput[ i ].addEventListener( 'focus', onFocus )
+        currencyInput[ i ].addEventListener( 'blur', onBlur )
+
+        function onFocus( e ) {
+            var value = e.target.value;
+            e.target.value = value ? localStringToNumber( value ) : ''
+        }
+
+        function onBlur( e ) {
+            var value = e.target.value
+
+            var options = {
+                maximumFractionDigits: 2,
+                currency: currency,
+                style: "currency",
+            }
+
+            e.target.value = ( value || value === 0 ) ?
+                localStringToNumber( value ).toLocaleString( undefined, options ) :
+                ''
+        }
+    }
+</script>

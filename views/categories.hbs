@@ -1,0 +1,12 @@
+<h1>{{title}}</h1>
+
+{{#if categories}} <!-- Only show list if there user already has categories -->
+    <ul class="list-group">
+        {{#each categories}} <!-- Execute this code for each category object -->
+            <li class="list-group-item">
+                <a href="/categories/{{@key}}">{{name}}</a>
+        {{/each}}
+    </ul>
+{{else}}
+<p>No categories yet...</p>
+{{/if}}
