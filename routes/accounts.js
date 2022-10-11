@@ -6,73 +6,84 @@ var admin = require("firebase-admin"); // Import firebase-admin module, used to 
 var functions = require('./functions');
 
 var db = admin.database(); // Start Firebase Realtime Database object
+var auth = admin.auth();
 
 router.get('/', function(req, res, next) { // Webpage that is displayed in the route /accounts/ to view all accounts (frontend code)
-    var ref = db.ref("accounts");
-    ref.once("value", function(snapshot) {
-        console.log(snapshot.val());
-        var data = snapshot.val();
+    functions.auth(req, auth, (uid) => {
+        var ref = db.ref("accounts").orderByChild('uid').equalTo(uid);
+        ref.once("value", function(snapshot) {
+            console.log(snapshot.val());
+            var data = snapshot.val();
 
-        for (const acc_id in data) {
-            const acc = data[acc_id];
-      
-            acc.balance_f = functions.format_currency(acc.balance);
-            acc.id = acc_id;
-      
-            data[acc_id] = acc;
-        }
+            for (const acc_id in data) {
+                const acc = data[acc_id];
+        
+                acc.balance_f = functions.format_currency(acc.balance);
+                acc.id = acc_id;
+        
+                data[acc_id] = acc;
+            }
 
-        res.render('accounts', { accounts: data , title: 'Accounts'});
+            res.render('accounts', { accounts: data , title: 'Accounts'});
+        });
+    }, () => {
+        res.redirect('/login');
     });
 });
 
 router.get('/:id', function(req, res) {
-    const id = req.params.id;
-    console.log(`Loading account with id ${id}`);
-    let uid = "0000001";
+    functions.auth(req, auth, (uid) => {
+        const id = req.params.id;
+        console.log(`Loading account with id ${id}`);
+        //let uid = "0000001";
 
-    db.ref(`accounts/${id}`).once("value", function(snapshot) {
-        var data = snapshot.val();
-        console.log(data);
-        let account = data.name;
-
-        console.log(`Account: ${account}`);
-        //functions.update_balance(account, uid, 100, admin);
-        
-        db.ref("transactions").orderByChild('uid').equalTo(uid).once("value", function(snapshot) {
-            //console.log(snapshot.val());
+        db.ref(`accounts/${id}`).once("value", function(snapshot) {
             var data = snapshot.val();
-            var account_data = new Object();
+            console.log(data);
+            let account = data.name;
 
-            var count = 0;
-    
-            for (const trans_id in data) {
-                const trans = data[trans_id];
-                console.log(trans.account);
+            console.log(`Account: ${account}`);
+            //functions.update_balance(account, uid, 100, admin);
+            
+            db.ref("transactions").orderByChild('uid').equalTo(uid).once("value", function(snapshot) {
+                //console.log(snapshot.val());
+                var data = snapshot.val();
+                var account_data = new Object();
+
+                var count = 0;
+        
+                for (const trans_id in data) {
+                    const trans = data[trans_id];
+                    console.log(trans.account);
+                    
+                    if (trans.account == account) {
+                        trans.amount_f = functions.format_currency(trans.amount);
+                        //const fecha_pre = new Date(trans.date);
+                        //console.log(fecha_pre);
+                        //trans.date_f = fecha_pre.toLocaleString('es-MX');
+                        trans.date_f = functions.format_date(trans.date);
+                        trans.id = trans_id;
                 
-                if (trans.account == account) {
-                    trans.amount_f = functions.format_currency(trans.amount);
-                    //const fecha_pre = new Date(trans.date);
-                    //console.log(fecha_pre);
-                    //trans.date_f = fecha_pre.toLocaleString('es-MX');
-                    trans.date_f = functions.format_date(trans.date);
-                    trans.id = trans_id;
-            
-                    account_data[trans_id] = trans;
+                        account_data[trans_id] = trans;
 
-                    count++;
+                        count++;
+                    }
                 }
-            }
 
-            account_data = functions.sort_transactions(account_data);
-            
-            if (count != 0) {
-                res.render('index', { transactions: account_data , title: account});
-            } else {
-                res.render('index', { title: account });
-            }
+                account_data = functions.sort_transactions(account_data);
+                
+                if (count != 0) {
+                    res.render('index', { transactions: account_data , title: account});
+                } else {
+                    res.render('index', { title: account });
+                }
+            });
         });
+    }, () => {
+        res.redirect('/login')
     });
+
+    
 });
 
 /*

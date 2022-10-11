@@ -169,4 +169,36 @@ function update_balance(account_name, uid, amount, admin) {
     });
 }
 
-module.exports = { currency_to_float, format_currency, format_date, date_to_form_string, date_to_millis, sort_transactions, update_balance, update_proj_balance, update_cat_balance };
+/**
+ * Returns the uid from a token
+ * @param  {String}   req         Request
+ * @param  {Auth}     auth        The firebase Auth object
+ * @param  {Function} next        Success function
+ * @param  {Function} error_func  Error function
+ */
+function auth(req, auth, next, error_func) {
+    const token = req.cookies["token"];
+    console.log(token);
+
+    if (token == null || token == "") {
+        return null;
+    }
+
+    console.log("verifying...")
+
+    auth
+        .verifyIdToken(token)
+        .then((decodedToken) => {
+            const uid = decodedToken.uid;
+            //console.log(uid);
+            //auth.get
+            next(uid);
+        })
+        .catch((error) => {
+            // Handle error
+            console.log(error);
+            error_func(error);
+        });
+}
+
+module.exports = { currency_to_float, format_currency, format_date, date_to_form_string, date_to_millis, sort_transactions, update_balance, update_proj_balance, update_cat_balance, auth };

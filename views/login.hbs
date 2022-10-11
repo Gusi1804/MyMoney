@@ -15,6 +15,17 @@
 </form>
 
 <script>
+    // Function to set cookies from https://www.w3schools.com/js/js_cookies.asp
+    function setCookie(cname, cvalue, exdays) { // takes the cookie name, cookie value, and expiration days values
+        const d = new Date(); // today
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000)); // set expiration time to today + number of specified days converted to milliseconds
+        let expires = "expires="+d.toUTCString();  // expirtaion date string
+
+        console.log(cname + "=" + cvalue + ";" + expires + ";path=/");
+
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;secure"; // set cookie with name, value and expiration date
+    }
+
     function login() {
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
@@ -30,8 +41,12 @@
 
                 user.getIdToken(true).then((token) => {
                     if (token) {
-                        // put the token at localStorage (We'll use this to make requests)
-                        localStorage.setItem("@token", token);
+                        // save the login token as a cookie (we'll use this information to only show the user's information)
+                        //localStorage.setItem("@token", token); // old method with localStorage
+                        //setCookie("token", token, 14); // set the token as a cookie, with an expiration date of 10 days.
+
+                        document.cookie = `token=${token}`;
+                        document.location.href = '../';
                     }
                 });
 
@@ -41,25 +56,5 @@
                 var errorCode = error.code;
                 var errorMessage = error.message;
             });
-
-        /*
-        auth.signInWithEmailAndPassword(email, password)
-            .then(function(userCredential) {
-                // User successfully signed in.
-                // ...
-                console.log("User successfully signed in.")
-
-                const token = userCredential.getIdToken(true);
-
-                if (token) {
-                    // put the token at localStorage (We'll use this to make requests)
-                    localStorage.setItem("@token", token);
-                }
-            })
-            .catch(function(error) {
-                // Error during login
-                alert("Error signing in, try again please.");
-            });
-            */
     }
 </script>

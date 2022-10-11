@@ -1,4 +1,7 @@
-<h1>{{title}}</h1>
+<div class="d-flex justify-content-between">
+    <h1>{{title}}</h1>
+    <a href="/new/transaction" target="_blank" class="btn btn-secondary btn-sm align-middle" style="height: 2.2em;"><small>New Transaction</small></a>
+</div>
 
 <div class="accordion accordion-flush" id="accordionFlushExample">
     {{#if transactions}}
@@ -28,7 +31,7 @@
     {{/if}}
 </div>
 
-
+<!--
 <form action="/new/transaction" method="POST">
     <input name="item" type="text" style="display: none" value="Hamburger">
     <input name="merchant" type="text" style="display: none" value="McDonald's">
@@ -41,3 +44,4 @@
     <input name="uid" type="text" style="display: none" value="0000001">
     <input type="submit" class="btn btn-primary" value="Add Demo Data">
 </form>
+-->
