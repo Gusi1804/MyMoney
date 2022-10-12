@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+process.env.TZ = 'America/Mexico_City';
+
 var indexRouter = require('./routes/index');
 var newTransactionRouter = require('./routes/new-transaction');
 var newAccountRouter = require('./routes/new-account');
