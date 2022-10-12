@@ -7,7 +7,7 @@ var router = express.Router();
 
 //var db = admin.database(); // Start Firebase Realtime Database object
 
-router.get('/', (req, res) => { // Backend code to process requests to delete transactions
+router.get('/', (req, res) => {
     res.render('login', { title: "Login" });
 });
 

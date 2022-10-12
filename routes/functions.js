@@ -182,6 +182,7 @@ function auth(req, auth, next, error_func) {
 
     if (token == null || token == "" || token == undefined) {
         error_func("no token!");
+        return
     } else {
         console.log("verifying...")
 
