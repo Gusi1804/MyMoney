@@ -180,7 +180,7 @@ function auth(req, auth, next, error_func) {
     const token = req.cookies["token"];
     console.log(token);
 
-    if (token == null || token == "") {
+    if (token == null || token == "" || token == undefined) {
         error_func("no token!");
     }
 
