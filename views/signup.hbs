@@ -1,6 +1,7 @@
 <h1>{{title}}</h1>
+<p>Please enter your email and password to create a new MyMoney account.</p>
 
-<form onsubmit="login()" action="javascript:void(0);">
+<form onsubmit="signup()" action="javascript:void(0);">
     <div class="form-floating mb-3">
         <input name="email" id="email" type="email" class="form-control">
         <label for="email">Email</label>
@@ -11,7 +12,7 @@
         <label for="password">Password</label>
     </div>
         
-    <input type="submit" class="btn btn-primary" value="Log in"> or <a href="/login/signup" class="btn btn-secondary">Sign Up</a>
+    <input type="submit" class="btn btn-primary" value="Sign up">
 </form>
 
 <script>
@@ -26,17 +27,17 @@
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;secure"; // set cookie with name, value and expiration date
     }
 
-    function login() {
+    function signup() {
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
 
         const auth = firebaseApp.auth();
 
-        auth.signInWithEmailAndPassword(email, password)
+        firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
-                // Signed in
+                // Signed in 
                 var user = userCredential.user;
-
+                
                 console.log(userCredential.user.email);
 
                 user.getIdToken(true).then((token) => {
@@ -49,12 +50,12 @@
                         document.location.href = '../';
                     }
                 });
-
-                
             })
             .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
+                
+                console.log(error);
             });
     }
 </script>
