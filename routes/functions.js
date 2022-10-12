@@ -182,23 +182,23 @@ function auth(req, auth, next, error_func) {
 
     if (token == null || token == "" || token == undefined) {
         error_func("no token!");
+    } else {
+        console.log("verifying...")
+
+        auth
+            .verifyIdToken(token)
+            .then((decodedToken) => {
+                const uid = decodedToken.uid;
+                //console.log(uid);
+                //auth.get
+                next(uid);
+            })
+            .catch((error) => {
+                // Handle error
+                console.log(error);
+                error_func(error);
+            });
     }
-
-    console.log("verifying...")
-
-    auth
-        .verifyIdToken(token)
-        .then((decodedToken) => {
-            const uid = decodedToken.uid;
-            //console.log(uid);
-            //auth.get
-            next(uid);
-        })
-        .catch((error) => {
-            // Handle error
-            console.log(error);
-            error_func(error);
-        });
 }
 
 module.exports = { currency_to_float, format_currency, format_date, date_to_form_string, date_to_millis, sort_transactions, update_balance, update_proj_balance, update_cat_balance, auth };
