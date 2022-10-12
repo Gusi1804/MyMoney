@@ -181,7 +181,7 @@ function auth(req, auth, next, error_func) {
     console.log(token);
 
     if (token == null || token == "") {
-        return null;
+        error_func("no token!");
     }
 
     console.log("verifying...")
