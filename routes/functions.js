@@ -133,7 +133,7 @@ function update_balance(account_name, uid, amount, admin) {
             }
         }
 
-        const ref = db.ref(`project/${proj_id}/balance`);
+        const ref = db.ref(`projects/${proj_id}/balance`);
         ref.transaction((current_value) => {
             return (current_value || 0) + amount;
         });
@@ -162,7 +162,7 @@ function update_balance(account_name, uid, amount, admin) {
             }
         }
 
-        const ref = db.ref(`category/${cat_id}/balance`);
+        const ref = db.ref(`categories/${cat_id}/balance`);
         ref.transaction((current_value) => {
             return (current_value || 0) + amount;
         });

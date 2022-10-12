@@ -52,9 +52,9 @@ router.post('/', (req, res) => { //Backend code to process the POST requests to 
 
         const amount = functions.currency_to_float(req.body.amount);
 
-        functions.update_balance(req.body.account, req.body.uid, amount, admin);
-        functions.update_cat_balance(req.body.category, req.body.uid, amount, admin);
-        functions.update_proj_balance(req.body.project, req.body.uid, amount, admin);
+        functions.update_balance(req.body.account, uid, amount, admin);
+        functions.update_cat_balance(req.body.category, uid, amount, admin);
+        functions.update_proj_balance(req.body.project, uid, amount, admin);
 
         res.redirect('/'); //Redirect to homepage to see newly added transaction
     }, () => {
