@@ -147,7 +147,7 @@ function update_balance(account_name, uid, amount, admin) {
  * @param  {Number} amount       The amount of the transaction
  * @param  {}       admin        The firebase admin SDK
  */
- function update_cat_balance(project_name, uid, amount, admin) {
+ function update_cat_balance(category_name, uid, amount, admin) {
     var db = admin.database(); //Start Firebase Realtime Database object
 
     db.ref(`categories`).orderByChild("uid").equalTo(uid).once("value", function(snapshot) {
@@ -156,7 +156,7 @@ function update_balance(account_name, uid, amount, admin) {
         var cat_id = "";
 
         for (const id in data) {
-            if (data[id].name == project_name) {
+            if (data[id].name == category_name) {
                 cat_id = id;
                 break;
             }
