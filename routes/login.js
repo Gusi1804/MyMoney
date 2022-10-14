@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', (req, res) => {
-    res.render('login', { title: "Login" });
+router.get('/', (req, res) => { // Get /login; this is the login page
+    res.render('login', { title: "Login" }); // render login.hbs
 });
 
-router.get('/signup', (req, res) => {
-    res.render('signup', { title: "Signup" });
+router.get('/signup', (req, res) => { // Get /login/signup; this is the signup page
+    res.render('signup', { title: "Signup" }); // render signup.hbs
 });
 
 module.exports = router;
