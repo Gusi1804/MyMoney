@@ -1,16 +1,18 @@
 <h1>{{title}}</h1>
 
+<!-- Login form -->
 <form onsubmit="login()" action="javascript:void(0);">
-    <div class="form-floating mb-3">
+    <div class="form-floating mb-3"> <!-- email input -->
         <input name="email" id="email" type="email" class="form-control">
         <label for="email">Email</label>
     </div>
 
     <div class="form-floating mb-3">
-        <input name="password" id="password" type="password" class="form-control">
+        <input name="password" id="password" type="password" class="form-control"> <!-- password input -->
         <label for="password">Password</label>
     </div>
-        
+
+    <!-- Login and signup buttons -->
     <input type="submit" class="btn btn-primary" value="Log in"> or <a href="/login/signup" class="btn btn-secondary">Sign Up</a>
 </form>
 
@@ -21,7 +23,7 @@
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000)); // set expiration time to today + number of specified days converted to milliseconds
         let expires = "expires="+d.toUTCString();  // expirtaion date string
 
-        console.log(cname + "=" + cvalue + ";" + expires + ";path=/");
+        console.log(cname + "=" + cvalue + ";" + expires + ";path=/"); // log cookie info
 
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;secure"; // set cookie with name, value and expiration date
     }
@@ -30,23 +32,20 @@
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
 
-        const auth = firebaseApp.auth();
+        const auth = firebaseApp.auth(); // initialize firebase auth service
 
-        auth.signInWithEmailAndPassword(email, password)
+        auth.signInWithEmailAndPassword(email, password) // attempt firebase login
             .then((userCredential) => {
                 // Signed in
                 var user = userCredential.user;
 
-                console.log(userCredential.user.email);
+                console.log(userCredential.user.email); // log user email
 
-                user.getIdToken(true).then((token) => {
+                user.getIdToken(true).then((token) => { // get encrypted uid ("token") which is stored in the user's device as a cookie and sent to the backend for each request to verify authentication
                     if (token) {
                         // save the login token as a cookie (we'll use this information to only show the user's information)
-                        //localStorage.setItem("@token", token); // old method with localStorage
-                        //setCookie("token", token, 14); // set the token as a cookie, with an expiration date of 10 days.
-
                         document.cookie = `token=${token}`;
-                        document.location.href = '../';
+                        document.location.href = '../'; // relocate to homepage
                     }
                 });
 

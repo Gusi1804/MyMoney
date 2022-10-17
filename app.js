@@ -4,8 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-process.env.TZ = 'America/Mexico_City';
+process.env.TZ = 'America/Mexico_City'; // set server's timezone to Mexico City
 
+// Import all routers (which process requests to different addresses)
 var indexRouter = require('./routes/index');
 var newTransactionRouter = require('./routes/new-transaction');
 var newAccountRouter = require('./routes/new-account');
@@ -19,16 +20,18 @@ var loginRouter = require('./routes/login');
 
 var app = express();
 
-// view engine setup
+// view engine setup: handlebars; processess .hbs files which are what is actually shown to the user
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+// import basic modules; they were included in the boilerplate code
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// define which routers are used for what routes
 app.use('/', indexRouter);
 app.use('/new/transaction', newTransactionRouter);
 app.use('/new/account', newAccountRouter);

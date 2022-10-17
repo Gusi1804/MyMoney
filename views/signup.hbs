@@ -27,27 +27,25 @@
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;secure"; // set cookie with name, value and expiration date
     }
 
+    //signup function
     function signup() {
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
 
-        const auth = firebaseApp.auth();
+        const auth = firebaseApp.auth(); // initialize firebase auth
 
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        firebase.auth().createUserWithEmailAndPassword(email, password) // attempt firebase signup
             .then((userCredential) => {
                 // Signed in 
-                var user = userCredential.user;
+                var user = userCredential.user; // get new user's details
                 
-                console.log(userCredential.user.email);
+                console.log(userCredential.user.email); // log user email
 
-                user.getIdToken(true).then((token) => {
+                user.getIdToken(true).then((token) => { // get token of new user
                     if (token) {
                         // save the login token as a cookie (we'll use this information to only show the user's information)
-                        //localStorage.setItem("@token", token); // old method with localStorage
-                        //setCookie("token", token, 14); // set the token as a cookie, with an expiration date of 10 days.
-
                         document.cookie = `token=${token}`;
-                        document.location.href = '../';
+                        document.location.href = '../'; // relocate to homepage
                     }
                 });
             })
@@ -55,7 +53,7 @@
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 
-                console.log(error);
+                console.log(error); // log error
             });
     }
 </script>

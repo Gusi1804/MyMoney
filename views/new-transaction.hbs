@@ -2,27 +2,28 @@
 
 <form action="/new/transaction" method="POST">
     <div class="form-floating mb-3">
-        <input name="item" id="item" type="text" class="form-control">
+        <input name="item" id="item" type="text" class="form-control"> <!-- item name/description input -->
         <label for="item">Item Name/Description</label>
     </div>
 
     <div class="form-floating mb-3">
-        <input name="merchant" id="merchant" type="text" class="form-control">
+        <input name="merchant" id="merchant" type="text" class="form-control"> <!-- merchant input -->
         <label for="merchant">Merchant</label>
     </div>
 
     <div class="form-floating mb-3">
-        <input name="amount" id="amount" type="currency" class="form-control">
+        <input name="amount" id="amount" type="currency" class="form-control"> <!-- amount input -->
         <label for="amount">Amount</label>
     </div>
 
     <div class="form-floating mb-3">
-        <input name="date" id="date" type="datetime-local" value="{{now}}" class="form-control">
+        <input name="date" id="date" type="datetime-local" value="{{now}}" class="form-control"> <!-- date input -->
         <label for="date">Date</label>
     </div>
     
     <div class="form-floating mb-3">
-        <select class="form-select" name="project" id="project" aria-label="Project">
+        <select class="form-select" name="project" id="project" aria-label="Project"> <!-- project input -->
+        <!-- show user's projects dynamically -->
             {{#if projects}}
                 <option selected>Select an option</option>
                 {{#each projects}}
@@ -36,7 +37,8 @@
     </div>
     
     <div class="form-floating mb-3">
-        <select class="form-select" name="category" id="category" aria-label="Category">
+        <select class="form-select" name="category" id="category" aria-label="Category"> <!-- category input -->
+        <!-- show user's categories dynamically -->
             {{#if categories}}
                 <option selected>Select an option</option>
                 {{#each categories}}
@@ -50,7 +52,7 @@
     </div>
 
     <div class="form-floating mb-3">
-        <select class="form-select" name="type" id="type" aria-label="Type">
+        <select class="form-select" name="type" id="type" aria-label="Type"> <!-- transaction type input -->
             <option selected>Select an option</option>
             <option value="Expense">Expense</option>
             <option value="Income">Income</option>
@@ -60,7 +62,8 @@
     </div>
 
     <div class="form-floating mb-3">
-        <select class="form-select" name="account" id="account" aria-label="Account">
+        <select class="form-select" name="account" id="account" aria-label="Account"> <!-- account input -->
+        <!-- show user's accounts dynamically -->
             {{#if accounts}}
                 <option selected>Select an option</option>
                 {{#each accounts}}

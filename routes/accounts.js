@@ -11,7 +11,7 @@ var auth = admin.auth(); // Start Firebase Authentication object
 router.get('/', function(req, res, next) { // Webpage that is displayed in the route /accounts/ to view all accounts (frontend code)
     functions.auth(req, auth, (uid) => { // Authentication function
         // Successful authentication
-        var ref = db.ref("accounts").orderByChild('uid').equalTo(uid); // Reference to all accounts with the same uuid as that of the current user
+        var ref = db.ref("accounts").orderByChild('uid').equalTo(uid); // Reference to all accounts with the same uid as that of the current user
         ref.once("value", function(snapshot) { // Get all documents in the reference ONCE
             console.log(snapshot.val());
             var data = snapshot.val();
@@ -46,7 +46,7 @@ router.get('/:id', function(req, res) { // Webpage that is displayed in the rout
 
             console.log(`Account: ${account}`);
             
-            db.ref("transactions").orderByChild('uid').equalTo(uid).once("value", function(snapshot) { // Reference to the user's transactions with the same uuid as that of the current user, get them once 
+            db.ref("transactions").orderByChild('uid').equalTo(uid).once("value", function(snapshot) { // Reference to the user's transactions with the same uid as that of the current user, get them once 
                 //console.log(snapshot.val());
                 var data = snapshot.val();
                 var account_data = new Object();

@@ -11,12 +11,12 @@ var auth = admin.auth();
 router.get('/', function(req, res, next) { //Webpage that is displayed in the route /categories/ to view all projects (frontend code)
     functions.auth(req, auth, (uid) => { // Authentication function
         // Successful authentication
-        var ref = db.ref("categories").orderByChild('uid').equalTo(uid); // Reference to all categories with the same uuid as that of the current user
+        var ref = db.ref("categories").orderByChild('uid').equalTo(uid); // Reference to all categories with the same uid as that of the current user
         ref.once("value", function(snapshot) { // Get all documents in the reference ONCE
             var data = snapshot.val();
 
             for (const cat_id in data) { // Process data: add category id and formatted balance to the account object
-                const cat = data[cat_id]; // Add category id to the object
+                const cat = data[cat_id];
         
                 cat.balance_f = functions.format_currency(cat.balance); // Add formated balance to the object (for prettier visualization)
                 cat.id = cat_id; // Add category id to the object
@@ -45,7 +45,7 @@ router.get('/:id', function(req, res) {
 
             console.log(`Category: ${category}`);
             
-            db.ref("transactions").orderByChild('uid').equalTo(uid).once("value", function(snapshot) { // Reference to the user's transactions with the same uuid as that of the current user, get them once
+            db.ref("transactions").orderByChild('uid').equalTo(uid).once("value", function(snapshot) { // Reference to the user's transactions with the same uid as that of the current user, get them once
                 //console.log(snapshot.val());
                 var data = snapshot.val();
                 var account_data = new Object();

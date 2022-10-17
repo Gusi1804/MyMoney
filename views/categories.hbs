@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between">
     <h1>{{title}}</h1>
-    <a href="/new/category" target="_blank" class="btn btn-secondary btn-sm" style="height: 2.2em;">New</a>
+    <a href="/new/category" target="_blank" class="btn btn-secondary btn-sm" style="height: 2.2em;">New</a> <!-- New Category button -->
 </div>
 
 {{#if categories}} <!-- Only show list if there user already has categories -->
@@ -9,7 +9,7 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span><a href="/categories/{{@key}}">{{name}}</a> | 
                 {{balance_f}}</span>
-                <a href="/delete/category/{{@key}}" class="btn btn-danger btn-sm ms-2">Delete</a>
+                <a href="/delete/category/{{@key}}" class="btn btn-danger btn-sm ms-2">Delete</a> <!-- Delete button -->
         {{/each}}
     </ul>
 {{else}}

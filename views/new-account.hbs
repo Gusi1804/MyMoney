@@ -2,17 +2,17 @@
 
 <form action="/new/account" method="POST">
     <div class="form-floating mb-3">
-        <input name="name" id="name" type="text" class="form-control">
+        <input name="name" id="name" type="text" class="form-control"> <!-- account name input -->
         <label for="name">Account Name</label>
     </div>
 
     <div class="form-floating mb-3">
-        <input name="balance" id="balance" type="currency" class="form-control">
+        <input name="balance" id="balance" type="currency" class="form-control"> <!-- starting balance input -->
         <label for="balance">Starting Balance</label>
     </div>
 
     <div class="form-floating mb-3">
-        <select class="form-select" name="type" id="type" aria-label="Type">
+        <select class="form-select" name="type" id="type" aria-label="Type"> <!-- account type input -->
             <option selected>Select an option</option>
             <option value="Credit">Credit</option>
             <option value="Debit">Debit</option>

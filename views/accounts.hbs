@@ -1,9 +1,7 @@
 <div class="d-flex justify-content-between">
     <h1>{{title}}</h1>
-    <a href="/new/account" target="_blank" class="btn btn-secondary btn-sm" style="height: 2.2em;">New</a>
+    <a href="/new/account" target="_blank" class="btn btn-secondary btn-sm" style="height: 2.2em;">New</a> <!-- New Account button -->
 </div>
-
-
 
 {{#if accounts}} <!-- Only show list if there user already has accounts -->
     <ul class="list-group">
@@ -12,7 +10,7 @@
                 <span><a href="/accounts/{{@key}}">{{name}}</a> |
                 {{balance_f}} |
                 {{type}}</span>
-                <a href="/delete/account/{{@key}}" class="btn btn-danger btn-sm ms-2">Delete</a>
+                <a href="/delete/account/{{@key}}" class="btn btn-danger btn-sm ms-2">Delete</a> <!-- Delete button -->
             </li>
         {{/each}}
     </ul>
