@@ -24,6 +24,8 @@ var auth = admin.auth(); // Start Firebase Authentication object
 
 // GET home page. Route: '/' //
 router.get('/', function(req, res, next) {
+  console.log(req.ip); // log user ip
+
   functions.auth(req, auth, (uid) => { // Authentication function
     // Successful authentication
     console.log(uid);

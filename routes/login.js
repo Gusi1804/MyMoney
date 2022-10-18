@@ -6,6 +6,7 @@ router.get('/', (req, res) => { // Get /login; this is the login page
 });
 
 router.get('/signup', (req, res) => { // Get /login/signup; this is the signup page
+    console.log(req.ip); // log user ip
     res.render('signup', { title: "Signup" }); // render signup.hbs
 });
 
